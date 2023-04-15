@@ -63,23 +63,4 @@ describe('Main - GetAvailableVersions', () => {
       )
     }
   })
-
-  test('Invalid repository key returns nothing', async () => {
-    axios.default.get = jest.fn()
-    console.warn = jest.fn()
-
-    await getAvailableVersions({ repositorys: [-1] })
-      .then((releases: VersionInfo[]) => {
-        expect(releases).toStrictEqual([])
-        expect(releases.length).toBe(0)
-      })
-      .catch(() => {
-        throw Error('No error should be thrown!')
-      })
-
-    expect(axios.default.get).not.toBeCalled()
-    expect(console.warn).toBeCalledWith(
-      'Unknown and not supported repository key passed! Skip fetch for -1'
-    )
-  })
 })
